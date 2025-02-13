@@ -1,4 +1,4 @@
-import './App.css'
+import './App.sass'
 import AppRouter from '@/routes/AppRouter'
 
 function App() {
