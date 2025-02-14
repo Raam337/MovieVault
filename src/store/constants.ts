@@ -1,0 +1,1 @@
+export const MOVIEDB_ITEMS_PER_RESPONSE = 20

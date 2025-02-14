@@ -1,44 +1,67 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { fetchFeaturedMovies } from './thunks'
+import { Movie } from '@/types/Movie'
+import { MOVIEDB_ITEMS_PER_RESPONSE } from './constants'
 
-
-
-export interface CounterState {
-  list: Array<any>
+export interface MovieList {
+  responseList: Array<Movie>,
+  displayedList: Array<Movie>,
+  isLoading: boolean,
+  paginationData: {
+    responsePage: number,
+    displayedPage: number,
+    itemsPerPage: number
+  }
 }
 
-const initialState: CounterState = {
-  list: [],
+const initialState: MovieList = {
+  responseList: [],
+  displayedList: [],
+  isLoading: false,
+  paginationData:{
+    responsePage: 1,
+    displayedPage: 1,
+    itemsPerPage: 10
+  }
 }
-
-
 
 export const movieListSlice = createSlice({
   name: 'movieList',
   initialState,
   reducers: {
-    addToList: (state, action: PayloadAction<string>) => {
-      state.list.push(action.payload)
+    updateDisplayedList: (state) => {
+      const ipp = state.paginationData.itemsPerPage //Items per page
+
+      const lastIndex = (state.paginationData.displayedPage) * ipp
+      const maxIndex = (state.paginationData.responsePage) * MOVIEDB_ITEMS_PER_RESPONSE
+
+      const start = Math.floor(lastIndex/maxIndex)*ipp
+
+      state.displayedList = state.responseList.slice(start,start + ipp)
+      console.log("Displayed list updated:", state.displayedList);
     },
-    clearList: (state) => {
-      state.list = []
-    },
-    fetchFeatured: (state) => {
-      state.list = ["apple", "sky", "ocean", "mountain", "river", "forest", "cloud", "storm", "fire", "stone"]
-    },
+    changePage: (state, action: PayloadAction<number>) => {
+      state.paginationData.displayedPage = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchFeaturedMovies.pending, (state) =>{
+        state.isLoading = true
+      })
       .addCase(fetchFeaturedMovies.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.list = action.payload.results
+        //console.log("Featured Movies: ", action.payload)
+        state.responseList = action.payload.results
+        state.paginationData.responsePage = action.payload.page
+        movieListSlice.caseReducers.updateDisplayedList(state)
+        state.isLoading = false
       })
   }
   ,
 })
 
 
-export const { addToList, clearList, fetchFeatured } = movieListSlice.actions
+export const { updateDisplayedList, changePage } = movieListSlice.actions
 
 export default movieListSlice.reducer

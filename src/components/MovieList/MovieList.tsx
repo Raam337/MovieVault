@@ -1,20 +1,12 @@
-import { addToList } from "@/store/movieListSlice";
-import { fetchFeaturedMovies } from "@/store/thunks";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 import MovieCard from "../MovieCard/MovieCard";
 import "./movieList.sass";
 import { Movie } from "@/types/Movie";
 
-function MovieList() {
-  const list = useSelector((state) => state.movieList.list);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFeaturedMovies("2"));
-    dispatch(addToList("Aurora"));
-  }, []);
-
+function MovieList( {list}:{list:Movie[]} ) {
+  const isLoading = useSelector( (state:RootState) => state.movieList.isLoading)
+  
   return (
     <div className="grid">
       <header>
@@ -23,9 +15,11 @@ function MovieList() {
         <p>Genre</p>
         <p>Release date</p>
       </header>
-      {list.map((item:Movie) => (
-        <MovieCard movie={item} />
+      {!isLoading && list.map((item:Movie) => (
+         <MovieCard key={item.id} movie={item} />
       ))}
+
+      {isLoading && <div className="placeholder"></div>}
     </div>
   );
 }

@@ -32,9 +32,9 @@ function MovieCard( { movie } : MovieCardProps ) {
   return (
     <section className="movieCard">
       <div>{movie.title}</div>
-      <div>{movie.original_language}</div>
+      <div>{movie.original_language?.toUpperCase()}</div>
       <div className="genreList">
-        {movie.genre_ids.length ? movie.genre_ids?.map( (id:number) => genres[id] ).join(", ") : "-"}
+        {movie.genre_ids?.length ? movie.genre_ids?.map( (id:number) => genres[id] ).join(", ") : "-"}
       </div>
       <div>{movie.release_date}</div>
     </section>
