@@ -1,6 +1,11 @@
 function MoviePage() {
+  
+
   return (
-    <h1>Movie Page</h1>
+    <>
+      <h1>Movie Page</h1>
+
+    </>
   )
 }
 

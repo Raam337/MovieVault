@@ -1,6 +1,12 @@
+import MovieList from "@/components/MovieList/MovieList"
+
 function FeaturedPage() {
   return (
-    <div>FeaturedPage</div>
+    <>
+      <div>FeaturedPage</div>
+      <MovieList></MovieList>
+    </>
+
   )
 }
 
