@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { fetchFeaturedMovies } from './thunks'
+import { fetchFeaturedMovies, fetchMovieByName } from './thunks'
 import { Movie } from '@/types/Movie'
 import { MOVIEDB_ITEMS_PER_RESPONSE } from './constants'
 
@@ -12,7 +12,9 @@ export interface MovieList {
   paginationData: {
     responsePage: number,
     displayedPage: number,
-    itemsPerPage: number
+    itemsPerPage: number,
+    responsePageTotal: number,
+    responseResultsTotal: number
   }
 }
 
@@ -24,7 +26,9 @@ const initialState: MovieList = {
   paginationData:{
     responsePage: 1,
     displayedPage: 1,
-    itemsPerPage: 10
+    itemsPerPage: 10,
+    responsePageTotal: 0,
+    responseResultsTotal: 0
   }
 }
 
@@ -52,6 +56,7 @@ export const movieListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    //Featured movies
       .addCase(fetchFeaturedMovies.pending, (state) =>{
         state.isLoading = true
       })
@@ -59,11 +64,25 @@ export const movieListSlice = createSlice({
         console.log(action);
         state.responseList = action.payload.results
         state.paginationData.responsePage = action.payload.page
+        state.paginationData.responsePageTotal = action.payload.total_pages
+        state.paginationData.responseResultsTotal = action.payload.total_results
         state.displayedList = updateList(state)
         state.isLoading = false
       })
-      .addCase(fetchFeaturedMovies.rejected, (state)=>{
+      .addCase(fetchFeaturedMovies.rejected, (_state)=>{
         console.log("Failed to fetch");
+      })
+    //Search by name
+      .addCase(fetchMovieByName.pending, (state)=>{
+        state.isLoading = true
+      })
+      .addCase(fetchMovieByName.fulfilled, (state, action)=>{
+        state.responseList = action.payload.results
+        state.paginationData.responsePage = action.payload.page
+        state.paginationData.responsePageTotal = action.payload.total_pages
+        state.paginationData.responseResultsTotal = action.payload.total_results
+        state.displayedList = updateList(state)
+        state.isLoading = false
       })
   }
   ,

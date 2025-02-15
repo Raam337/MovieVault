@@ -18,3 +18,14 @@ export const fetchFeaturedMovies = createAsyncThunk(
     return response.json();
   }
 )
+
+export const fetchMovieByName = createAsyncThunk(
+  "list/fetchByName",
+  async ({endpoint, page = 1}:{endpoint: string, page?: number}) => {
+    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${endpoint}&include_adult=false&language=en-US&page=${page}`,options);
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    return response.json();
+  }
+)

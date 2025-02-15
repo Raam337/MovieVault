@@ -1,28 +1,40 @@
 import "./pagination.sass";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { changePage } from "@/store/movieListSlice";
+import { useEffect, useState } from "react";
 
 interface PaginationProps {
   itemsPerPage: number;
   totalItems: number;
-  paginate: Function
 }
 
-function Pagination({ itemsPerPage, totalItems, paginate }: PaginationProps) {
+function Pagination({ itemsPerPage, totalItems }: PaginationProps) {
   const numberOfPages = Math.ceil(totalItems / itemsPerPage);
   const pageIndexArray = [...Array(numberOfPages).keys()].map((i) => i + 1);
+  const dispatch = useDispatch<AppDispatch>()
 
-  const currentPage = useSelector( (state:RootState) => state.movieList.paginationData.displayedPage)
+  const paginationData = useSelector( (state:RootState) => state.movieList.paginationData)
+
+  function paginate(index:number){
+    console.log(index);
+    dispatch( changePage(index) )
+  }
+
 
   return (
     <ul className="list">
+      <li className="list__item" key={-10} onClick={() => paginate(1)}>Start</li>
+      <li className="list__item" key={-1} onClick={() => paginate(paginationData.displayedPage-1)}>←</li>
       {pageIndexArray.map((index) => {
         return (
-          <li className={`list__item ${currentPage === index && "list__item-active" }`} key={index} onClick={() => paginate(index)}>
+          <li className={`list__item ${paginationData.displayedPage === index && "list__item-active" }`} key={index} onClick={() => paginate(index)}>
             {index}
           </li>
         );
       })}
+      <li className="list__item" key={-2} onClick={() => paginate(paginationData.displayedPage+1)}>→</li>
+      <li className="list__item" key={-20} onClick={() => paginate(numberOfPages)}>End</li>
     </ul>
   );
 }

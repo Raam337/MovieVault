@@ -9,7 +9,7 @@ function MovieList( {list}:{list:Movie[]} ) {
   
   return (
     <div className="grid">
-      <header>
+      <header className="grid__header">
         <p>Name</p>
         <p>Language</p>
         <p>Genre</p>
