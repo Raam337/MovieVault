@@ -10,7 +10,7 @@ const options = {
 
 export const fetchFeaturedMovies = createAsyncThunk(
   "list/fetchFeatured",
-  async (endpoint: string) => {
+  async (endpoint: number) => {
     const response = await fetch(`https://api.themoviedb.org/3/trending/movie/week?language=en-US&page=${endpoint}`,options);
     if (!response.ok) {
       throw new Error('Failed to fetch data');

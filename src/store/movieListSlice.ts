@@ -8,6 +8,7 @@ export interface MovieList {
   responseList: Array<Movie>,
   displayedList: Array<Movie>,
   isLoading: boolean,
+  error: string,
   paginationData: {
     responsePage: number,
     displayedPage: number,
@@ -19,6 +20,7 @@ const initialState: MovieList = {
   responseList: [],
   displayedList: [],
   isLoading: false,
+  error: "",
   paginationData:{
     responsePage: 1,
     displayedPage: 1,
@@ -26,20 +28,23 @@ const initialState: MovieList = {
   }
 }
 
+function updateList(state: MovieList){
+  const ipp = state.paginationData.itemsPerPage //Items per page
+
+  const lastIndex = (state.paginationData.displayedPage) * ipp
+  const maxIndex = (state.paginationData.responsePage) * MOVIEDB_ITEMS_PER_RESPONSE
+
+  const start = Math.floor(lastIndex/maxIndex)*ipp
+
+  return state.responseList.slice(start,start + ipp)
+}
+
 export const movieListSlice = createSlice({
   name: 'movieList',
   initialState,
   reducers: {
     updateDisplayedList: (state) => {
-      const ipp = state.paginationData.itemsPerPage //Items per page
-
-      const lastIndex = (state.paginationData.displayedPage) * ipp
-      const maxIndex = (state.paginationData.responsePage) * MOVIEDB_ITEMS_PER_RESPONSE
-
-      const start = Math.floor(lastIndex/maxIndex)*ipp
-
-      state.displayedList = state.responseList.slice(start,start + ipp)
-      console.log("Displayed list updated:", state.displayedList);
+      state.displayedList = updateList(state)
     },
     changePage: (state, action: PayloadAction<number>) => {
       state.paginationData.displayedPage = action.payload
@@ -51,11 +56,14 @@ export const movieListSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchFeaturedMovies.fulfilled, (state, action) => {
-        //console.log("Featured Movies: ", action.payload)
+        console.log(action);
         state.responseList = action.payload.results
         state.paginationData.responsePage = action.payload.page
-        movieListSlice.caseReducers.updateDisplayedList(state)
+        state.displayedList = updateList(state)
         state.isLoading = false
+      })
+      .addCase(fetchFeaturedMovies.rejected, (state)=>{
+        console.log("Failed to fetch");
       })
   }
   ,
