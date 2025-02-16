@@ -1,3 +1,4 @@
+import { DetailedMovie } from "@/types/Movie";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const options = {
@@ -27,5 +28,20 @@ export const fetchMovieByName = createAsyncThunk(
       throw new Error('Failed to fetch data');
     }
     return response.json();
+  }
+)
+
+export const fetchMovieDetails = createAsyncThunk(
+  "list/fetchById",
+  async (endpoint : number | string) => {
+    const [movieResponse, imageResponse] = await Promise.all([
+      fetch(`https://api.themoviedb.org/3/movie/${endpoint}?language=en-US`,options)
+        .then(data => data.json()),
+      fetch(`https://api.themoviedb.org/3/movie/${endpoint}/images`,options)
+        .then(data => data.json())
+    ])
+    movieResponse.backdrops = imageResponse.backdrops.slice(-5)
+
+    return movieResponse as DetailedMovie;
   }
 )

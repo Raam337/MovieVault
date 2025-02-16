@@ -1,0 +1,32 @@
+@import '@splidejs/react-splide/css'
+  
+.detailPage
+  display: grid
+  grid-template-columns: repeat(2, minmax(100px,1fr))
+  gap:20px
+  align-items: center
+  padding: 2% 2%
+  
+  &__carousel
+    width: 100%
+    background: #888888
+
+  &__infoList
+    display: flex
+    flex-direction: column
+    gap: 10px
+
+  &__infoLine
+    display: grid
+    grid-template-columns: 120px 1fr
+    gap: 5px
+    
+  
+    &--highlight
+      font-weight: bold
+
+.blackBox
+  background: black
+  height: 100%
+  width: 100%
+

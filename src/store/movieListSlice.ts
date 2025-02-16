@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { fetchFeaturedMovies, fetchMovieByName } from './thunks'
-import { Movie } from '@/types/Movie'
+import { fetchFeaturedMovies, fetchMovieByName, fetchMovieDetails } from './thunks'
+import { DetailedMovie, Movie } from '@/types/Movie'
 import { MOVIEDB_ITEMS_PER_RESPONSE } from './constants'
+import MovieList from '@/components/MovieList/MovieList'
 
 export interface MovieList {
   responseList: Array<Movie>,
@@ -15,7 +16,8 @@ export interface MovieList {
     itemsPerPage: number,
     responsePageTotal: number,
     responseResultsTotal: number
-  }
+  },
+  detailedMovie: DetailedMovie | null
 }
 
 const initialState: MovieList = {
@@ -29,7 +31,8 @@ const initialState: MovieList = {
     itemsPerPage: 10,
     responsePageTotal: 0,
     responseResultsTotal: 0
-  }
+  },
+  detailedMovie: null
 }
 
 function updateList(state: MovieList){
@@ -52,6 +55,9 @@ export const movieListSlice = createSlice({
     },
     changePage: (state, action: PayloadAction<number>) => {
       state.paginationData.displayedPage = action.payload
+    },
+    clearDetailedMovie: (state) => {
+      state.detailedMovie = null
     }
   },
   extraReducers: (builder) => {
@@ -84,11 +90,19 @@ export const movieListSlice = createSlice({
         state.displayedList = updateList(state)
         state.isLoading = false
       })
+    //Search my ID
+    .addCase(fetchMovieDetails.pending, (state)=>{
+      state.isLoading = true
+    })
+    .addCase(fetchMovieDetails.fulfilled, (state, action)=>{
+      state.detailedMovie = action.payload
+      state.isLoading = false
+    })
   }
   ,
 })
 
 
-export const { updateDisplayedList, changePage } = movieListSlice.actions
+export const { updateDisplayedList, changePage, clearDetailedMovie } = movieListSlice.actions
 
 export default movieListSlice.reducer

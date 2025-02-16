@@ -4,7 +4,7 @@ import { MOVIEDB_ITEMS_PER_RESPONSE } from "@/store/constants"
 import { changePage, updateDisplayedList } from "@/store/movieListSlice"
 import { AppDispatch, RootState } from "@/store/store"
 import { fetchFeaturedMovies, fetchMovieByName } from "@/store/thunks"
-import { FormEventHandler, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import "./featuredPage.sass"
 
@@ -44,7 +44,7 @@ function FeaturedPage() {
 
   return (
     <div className="page">
-      <h1 className="page__form-header">Search for movie by name</h1>
+      <h1>Search for movie by name</h1>
       <form className="page__form" onSubmit={handleSearch}>
         <input type="text" name="search"/>
         <button type="submit">Search</button>

@@ -1,5 +1,6 @@
 import { Movie } from "@/types/Movie"
 import "./movieCard.sass"
+import { useNavigate } from "react-router-dom";
 
 interface MovieCardProps {
   movie: Movie
@@ -29,8 +30,9 @@ const genres : { [key : number]:string } = {
 
 
 function MovieCard( { movie } : MovieCardProps ) {
+  const navigate = useNavigate()
   return (
-    <section className="movieCard">
+    <section className="movieCard" onClick={() => navigate(`/movie?id=${movie.id}`)}>
       <div>{movie.title}</div>
       <div>{movie.original_language?.toUpperCase()}</div>
       <div className="genreList">
