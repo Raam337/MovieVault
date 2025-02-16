@@ -33,12 +33,12 @@ function MovieCard( { movie } : MovieCardProps ) {
   const navigate = useNavigate()
   return (
     <section className="movieCard" onClick={() => navigate(`/movie?id=${movie.id}`)}>
-      <div>{movie.title}</div>
-      <div>{movie.original_language?.toUpperCase()}</div>
-      <div className="genreList">
+      <span>{movie.title}</span>
+      <span>{movie.original_language?.toUpperCase()}</span>
+      <span className="genreList">
         {movie.genre_ids?.length ? movie.genre_ids?.map( (id:number) => genres[id] ).join(", ") : "-"}
-      </div>
-      <div>{movie.release_date}</div>
+      </span>
+      <span>{movie.release_date}</span>
     </section>
   )
 }

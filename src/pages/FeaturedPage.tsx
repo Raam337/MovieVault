@@ -7,17 +7,23 @@ import { fetchFeaturedMovies, fetchMovieByName } from "@/store/thunks"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import "./featuredPage.sass"
+import { useSearchParams } from "react-router-dom"
 
 function FeaturedPage() {
   const list = useSelector( (state:RootState) => state.movieList.displayedList)
   const paginationData = useSelector( (state:RootState) => state.movieList.paginationData)
-
-  const [search, setSearch] = useState<string>("")
-
   const dispatch = useDispatch<AppDispatch>()
+  const [searchParam,setSearchParam] = useSearchParams()
+
+  const [search, setSearch] = useState<string>(searchParam.get("search")?? "")
+
 
   useEffect( ()=>{
-    dispatch( fetchFeaturedMovies(1) )
+    if( list.length === 0){
+      dispatch( fetchFeaturedMovies(1) )
+    } else {
+      dispatch( updateDisplayedList())
+    }
   },[])
     
   useEffect( ()=>{
@@ -36,10 +42,18 @@ function FeaturedPage() {
   function handleSearch(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const searchData = formData.get("search") as string
-    setSearch(searchData);
+    const inputData = formData.get("search") as string
     dispatch(changePage(1))
-    search.length > 0 ? dispatch(fetchMovieByName({endpoint:search})) : dispatch( fetchFeaturedMovies(1) )
+
+    setSearchParam({search: inputData})
+    if (inputData.length > 0){
+      dispatch(fetchMovieByName({endpoint:inputData}))
+      setSearch(inputData)
+     } else {
+      dispatch( fetchFeaturedMovies(1) )
+      setSearchParam({})
+      setSearch("")
+     } 
   }
 
   return (

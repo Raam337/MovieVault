@@ -67,7 +67,6 @@ export const movieListSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchFeaturedMovies.fulfilled, (state, action) => {
-        console.log(action);
         state.responseList = action.payload.results
         state.paginationData.responsePage = action.payload.page
         state.paginationData.responsePageTotal = action.payload.total_pages
