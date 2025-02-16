@@ -1,22 +1,47 @@
-.list
-  display: flex
-  flex-direction: row
-  list-style: none
-  gap: 2px
+@mixin btn-size($w)
+  text-decoration: none;
   text-align: center
-  flex-wrap: wrap
+  color: inherit;
+  display: block
+  width: $w
+  height: 40px
+  line-height: 40px
   
-  &__item
-    width: 20px
-    height: 20px
-    border: 1px solid black
-    cursor: default
-    user-select: none
+.pg
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  gap: 8px;
 
-    &-active
-      background: red
+  &__item
+    background: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+    
 
     &:hover
-      background: teal
-      
-      
+      background: #f0f0f0;
+    
+
+    &--active
+      background: #007bff;
+      color: #fff;
+      border-color: #007bff;
+      font-weight: bold;
+    
+
+    &--disabled
+      opacity: 0.5;
+      pointer-events: none;
+
+  &__link 
+    @include btn-size($w: 40px)
+
+  &__nav-button
+    @include btn-size($w: 100px)
+    
+
+  

@@ -40,6 +40,7 @@ function FeaturedPage() {
 
 
   function handleSearch(e: React.FormEvent<HTMLFormElement>){
+    console.log("handle search");
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const inputData = formData.get("search") as string
