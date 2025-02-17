@@ -20,10 +20,21 @@
     display: grid
     grid-template-columns: 120px 1fr
     gap: 5px
-    
-  
+
     &--highlight
       font-weight: bold
+
+  &__back-button
+    grid-column: span 2
+    width: 6vw
+    border-radius: 6px
+    border-width: 0px
+    background: #eaeaea
+    color: #3a3a3a
+  
+    &:hover
+      outline: 1px solid
+    
 
 .blackBox
   background: black

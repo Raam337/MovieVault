@@ -44,7 +44,7 @@ function MoviePage() {
 
   return (
     <main className="detailPage">
-
+      <button className="detailPage__back-button" onClick={()=> history.back()}>← Back</button>
       <Splide className="detailPage__carousel" options={ { rewind: true } }>
         <SplideSlide>
           <ImageSkeleton url={`https://image.tmdb.org/t/p/original${movieData?.poster_path}`} />

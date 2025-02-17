@@ -61,8 +61,8 @@ function FeaturedPage() {
     <div className="page">
       <h1>Search for movie by name</h1>
       <form className="page__form" onSubmit={handleSearch}>
-        <input type="text" name="search"/>
-        <button type="submit">Search</button>
+        <input className="page__search-bar" type="text" name="search"/>
+        <button className="page__search-btn" type="submit">Search</button>
       </form>
       <header className="page__header">{search ? `Search results for ${search}` : "Featured movies" }</header>
       <MovieList list={list}></MovieList>

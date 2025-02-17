@@ -1,9 +1,15 @@
 import "./Header.sass"
+import logo from "@/assets/logox.png"
 
 function Header() {
   return (
     <header className="header">
-        <p className="header__title">Movie Vault</p>
+      <div>
+        <a href="/">
+          <img src={logo} width={200} />
+        </a>
+      </div>
+      
     </header>
   )
 }
