@@ -1,47 +1,43 @@
-import { DetailedMovie } from "@/types/Movie";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: import.meta.env.VITE_MOVIE_API
+const api = axios.create(
+  {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: import.meta.env.VITE_MOVIE_API
+    },
+    baseURL: "http://localhost:3000/movie-api"
   }
-};
+)
 
 export const fetchFeaturedMovies = createAsyncThunk(
   "list/fetchFeatured",
-  async (endpoint: number) => {
-    const response = await fetch(`https://api.themoviedb.org/3/trending/movie/week?language=en-US&page=${endpoint}`,options);
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    return response.json();
+  async (page:number = 1) => {
+    return api
+      .get(`/featured?page=${page}`)
+      .then( res => res.data)
+      .catch( err => err )
   }
 )
 
 export const fetchMovieByName = createAsyncThunk(
   "list/fetchByName",
-  async ({endpoint, page = 1}:{endpoint: string, page?: number}) => {
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${endpoint}&include_adult=false&language=en-US&page=${page}`,options);
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    return response.json();
+  async ({name, page = 1}:{name: string, page?: number}) => {
+    return api
+      .get(`/movies?name=${name}&page=${page}`)
+      .then( res => res.data)
+      .catch( err => err )    
   }
 )
 
 export const fetchMovieDetails = createAsyncThunk(
   "list/fetchById",
-  async (endpoint : number | string) => {
-    const [movieResponse, imageResponse] = await Promise.all([
-      fetch(`https://api.themoviedb.org/3/movie/${endpoint}?language=en-US`,options)
-        .then(data => data.json()),
-      fetch(`https://api.themoviedb.org/3/movie/${endpoint}/images`,options)
-        .then(data => data.json())
-    ])
-    movieResponse.backdrops = imageResponse.backdrops.slice(-5)
-
-    return movieResponse as DetailedMovie;
+  async (id : number | string) => {
+    return api 
+      .get(`/movie?id=${id}`)
+      .then( res => res.data)
+      .catch( err => err )
   }
 )

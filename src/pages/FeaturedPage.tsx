@@ -32,7 +32,7 @@ function FeaturedPage() {
 
     if (maxIndex - lastIndex > MOVIEDB_ITEMS_PER_RESPONSE || lastIndex > maxIndex){
       const fetchPage = Math.ceil(lastIndex/MOVIEDB_ITEMS_PER_RESPONSE)
-      search.length > 0 ? dispatch( fetchMovieByName({endpoint:search, page:fetchPage})) : dispatch(fetchFeaturedMovies(fetchPage))
+      search.length > 0 ? dispatch( fetchMovieByName({name:search, page:fetchPage})) : dispatch(fetchFeaturedMovies(fetchPage))
     } else {
       dispatch( updateDisplayedList() )
     }
@@ -48,7 +48,7 @@ function FeaturedPage() {
 
     setSearchParam({search: inputData})
     if (inputData.length > 0){
-      dispatch(fetchMovieByName({endpoint:inputData}))
+      dispatch(fetchMovieByName({name:inputData}))
       setSearch(inputData)
      } else {
       dispatch( fetchFeaturedMovies(1) )
