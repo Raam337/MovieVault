@@ -1,7 +1,5 @@
-import { AppDispatch, RootState } from "@/store/store";
 import { fetchMovieDetails } from "@/store/thunks";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import "./moviePage.sass";
 import { Splide, SplideSlide } from "@splidejs/react-splide";

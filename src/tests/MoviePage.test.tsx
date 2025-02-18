@@ -1,6 +1,6 @@
 import MoviePage from "@/pages/MoviePage"
 import { renderWithProviders } from "./test-utils"
-import {fireEvent, screen, waitFor} from "@testing-library/react"
+import { screen, waitFor} from "@testing-library/react"
 
 describe('MoviePage', () => {
   it('should show error banner if id is 0', async () => {

@@ -4,7 +4,6 @@ import { fetchFeaturedMovies, fetchMovieByName, fetchMovieDetails } from './thun
 import { DetailedMovie, Movie } from '@/types/Movie'
 import { MOVIEDB_ITEMS_PER_RESPONSE } from './constants'
 import MovieList from '@/components/MovieList/MovieList'
-import { aC } from 'vitest/dist/chunks/reporters.6vxQttCV.js'
 
 export interface MovieList {
   responseList: Array<Movie>,
