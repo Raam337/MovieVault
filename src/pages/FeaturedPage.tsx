@@ -29,7 +29,8 @@ function FeaturedPage() {
     const lastIndex = (paginationData.displayedPage) * paginationData.itemsPerPage
     const maxIndex = paginationData.responsePage*MOVIEDB_ITEMS_PER_RESPONSE
 
-    if (maxIndex - lastIndex > MOVIEDB_ITEMS_PER_RESPONSE || lastIndex > maxIndex){
+    console.log(maxIndex - lastIndex > MOVIEDB_ITEMS_PER_RESPONSE,lastIndex > maxIndex);
+    if (maxIndex - lastIndex >= MOVIEDB_ITEMS_PER_RESPONSE || lastIndex > maxIndex ){
       const fetchPage = Math.ceil(lastIndex/MOVIEDB_ITEMS_PER_RESPONSE)
       search.length > 0 ? dispatch( fetchMovieByName({name:search, page:fetchPage})) : dispatch(fetchFeaturedMovies(fetchPage))
     } else {

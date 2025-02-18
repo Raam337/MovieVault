@@ -6,7 +6,7 @@ import { useAppSelector } from "@/store/hooks";
 
 function MovieList( {list}:{list:Movie[]} ) {
   const isLoading = useAppSelector(state => state.movieList.isLoading)
-  console.log(list);
+
   return (
     <div className="movieList">
       <header className="movieList__header">

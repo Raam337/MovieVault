@@ -36,6 +36,7 @@ const initialState: MovieList = {
 }
 
 function updateList(state: MovieList){
+  
   const ipp = state.paginationData.itemsPerPage //Items per page
 
   const lastIndex = (state.paginationData.displayedPage) * ipp

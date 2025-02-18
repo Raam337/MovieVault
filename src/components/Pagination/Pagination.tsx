@@ -12,11 +12,9 @@ function Pagination({ itemsPerPage, totalItems }: PaginationProps) {
   const numberOfPages = Math.ceil(totalItems / itemsPerPage);
   const dispatch = useAppDispatch()
   const paginationData = useAppSelector(state => state.movieList.paginationData)
-
   function paginate(index:{selected:number}){
     dispatch( changePage(index.selected+1) )
   }
-
 
   return (
     <ReactPaginate
@@ -32,7 +30,7 @@ function Pagination({ itemsPerPage, totalItems }: PaginationProps) {
         breakLabel="..."
         breakClassName="pg__item"
         breakLinkClassName="pg__link"
-        pageCount={numberOfPages}
+        pageCount={numberOfPages ?? 9999}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={paginate}
