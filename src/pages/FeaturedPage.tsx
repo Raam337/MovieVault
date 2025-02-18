@@ -2,17 +2,16 @@ import MovieList from "@/components/MovieList/MovieList"
 import Pagination from "@/components/Pagination/Pagination"
 import { MOVIEDB_ITEMS_PER_RESPONSE } from "@/store/constants"
 import { changePage, updateDisplayedList } from "@/store/movieListSlice"
-import { AppDispatch, RootState } from "@/store/store"
 import { fetchFeaturedMovies, fetchMovieByName } from "@/store/thunks"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import "./featuredPage.sass"
 import { useSearchParams } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
 
 function FeaturedPage() {
-  const list = useSelector( (state:RootState) => state.movieList.displayedList)
-  const paginationData = useSelector( (state:RootState) => state.movieList.paginationData)
-  const dispatch = useDispatch<AppDispatch>()
+  const list = useAppSelector(state => state.movieList.displayedList)
+  const paginationData = useAppSelector(state => state.movieList.paginationData)
+  const dispatch = useAppDispatch()
   const [searchParam,setSearchParam] = useSearchParams()
 
   const [search, setSearch] = useState<string>(searchParam.get("search")?? "")
@@ -40,7 +39,6 @@ function FeaturedPage() {
 
 
   function handleSearch(e: React.FormEvent<HTMLFormElement>){
-    console.log("handle search");
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const inputData = formData.get("search") as string
@@ -64,7 +62,7 @@ function FeaturedPage() {
         <input className="page__search-bar" type="text" name="search"/>
         <button className="page__search-btn" type="submit">Search</button>
       </form>
-      <header className="page__header">{search ? `Search results for ${search}` : "Featured movies" }</header>
+      <h2 className="page__header">{search ? `Search results for ${search}` : "Featured movies" }</h2>
       <MovieList list={list}></MovieList>
       <Pagination itemsPerPage={paginationData.itemsPerPage} totalItems={paginationData.responseResultsTotal}></Pagination>
     </div>

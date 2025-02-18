@@ -32,7 +32,11 @@ const genres : { [key : number]:string } = {
 function MovieCard( { movie } : MovieCardProps ) {
   const navigate = useNavigate()
   return (
-    <section className="movieCard" onClick={() => navigate(`/movie?id=${movie.id}`)}>
+    <section 
+      className="movieCard" 
+      onClick={() => navigate(`/movie?id=${movie.id}`)}
+      data-testid="movie-card"
+      >
       <span>{movie.title}</span>
       <span>{movie.original_language?.toUpperCase()}</span>
       <span className="genreList">

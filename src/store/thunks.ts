@@ -38,6 +38,6 @@ export const fetchMovieDetails = createAsyncThunk(
     return api 
       .get(`/movie?id=${id}`)
       .then( res => res.data)
-      .catch( err => err )
+      .catch( err => {throw err} )
   }
 )

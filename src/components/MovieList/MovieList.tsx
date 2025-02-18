@@ -1,13 +1,12 @@
-import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
 import MovieCard from "../MovieCard/MovieCard";
 import "./movieList.sass";
 import { Movie } from "@/types/Movie";
 import Skeleton from "react-loading-skeleton";
+import { useAppSelector } from "@/store/hooks";
 
 function MovieList( {list}:{list:Movie[]} ) {
-  const isLoading = useSelector( (state:RootState) => state.movieList.isLoading)
-  
+  const isLoading = useAppSelector(state => state.movieList.isLoading)
+  console.log(list);
   return (
     <div className="movieList">
       <header className="movieList__header">
@@ -20,7 +19,7 @@ function MovieList( {list}:{list:Movie[]} ) {
          <MovieCard key={item.id} movie={item} />
       ))}
 
-      {isLoading && <Skeleton className="movieList__placeholder"/>}
+      {isLoading && <Skeleton data-testid="skeleton" className="movieList__placeholder"/>}
     </div>
   );
 }

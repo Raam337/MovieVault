@@ -4,12 +4,13 @@ import { fetchFeaturedMovies, fetchMovieByName, fetchMovieDetails } from './thun
 import { DetailedMovie, Movie } from '@/types/Movie'
 import { MOVIEDB_ITEMS_PER_RESPONSE } from './constants'
 import MovieList from '@/components/MovieList/MovieList'
+import { aC } from 'vitest/dist/chunks/reporters.6vxQttCV.js'
 
 export interface MovieList {
   responseList: Array<Movie>,
   displayedList: Array<Movie>,
   isLoading: boolean,
-  error: string,
+  error: string | null,
   paginationData: {
     responsePage: number,
     displayedPage: number,
@@ -24,7 +25,7 @@ const initialState: MovieList = {
   responseList: [],
   displayedList: [],
   isLoading: false,
-  error: "",
+  error: null,
   paginationData:{
     responsePage: 1,
     displayedPage: 1,
@@ -89,13 +90,17 @@ export const movieListSlice = createSlice({
         state.displayedList = updateList(state)
         state.isLoading = false
       })
-    //Search my ID
+    //Search by ID
     .addCase(fetchMovieDetails.pending, (state)=>{
       state.isLoading = true
     })
     .addCase(fetchMovieDetails.fulfilled, (state, action)=>{
       state.detailedMovie = action.payload
       state.isLoading = false
+    })
+    .addCase(fetchMovieDetails.rejected, (state,action)=>{
+      state.isLoading = false
+      state.error = action.error.message!
     })
   }
   ,

@@ -1,14 +1,11 @@
-import { RootState } from "@/store/store";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useSelector } from "react-redux";
 import "./imageSkeleton.sass"
+import { useAppSelector } from "@/store/hooks";
 
 export default function ImageSkeleton({ url }: { url: string }) {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const storeLoading = useSelector<RootState>(
-    (state) => state.movieList.isLoading
-  );
+  const storeLoading = useAppSelector(state => state.movieList.isLoading);
 
   return (
     <div className="container">
