@@ -48,7 +48,9 @@ Ensure you have Node.js (>=16) and npm (>=8) installed.
 *Make sure you start at /MovieVault*
 ```
 npm install
-cd proxy; npm install; cd..
+cd proxy
+npm install
+cd..
 ```
 
 3. Run the development server
