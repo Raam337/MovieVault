@@ -4,14 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "develop": "concurrently \"npm run front\" \"npm run proxy\" ",
+    "development": "concurrently \"npm run front\" \"npm run proxy\" ",
     "front": "npm run dev",
     "proxy": "cd proxy && npm run dev",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest --ui --watch"
+    "test": "vitest --ui --watch",
+    "production": "concurrently \"npm run preview\" \"npm run proxy:prod\" ",
+    "proxy:prod": "cd proxy && npm run start:prod"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
@@ -19,7 +21,6 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "axios": "^1.7.9",
-    "concurrently": "^9.1.2",
     "jsdom": "^26.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -36,6 +37,7 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/ui": "^3.0.5",
+    "concurrently": "^9.1.2",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
