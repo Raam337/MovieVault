@@ -72,11 +72,8 @@ Access proxy at - [http://localhost:3000/](http://localhost:3000/)
 ```
 
 npm run build
-
 cd proxy
-
 npm run build
-
 cd ..
 
 ```
