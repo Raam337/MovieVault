@@ -1,5 +1,5 @@
-import "./Header.sass"
-import logo from "@/assets/logox.png"
+import "./Header.sass";
+import logo from "@/assets/logox.png";
 
 function Header() {
   return (
@@ -9,9 +9,8 @@ function Header() {
           <img src={logo} width={200} />
         </a>
       </div>
-      
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

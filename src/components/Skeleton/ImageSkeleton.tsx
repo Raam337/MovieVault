@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "./imageSkeleton.sass"
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector } from "@/store/storeActions";
 
 export default function ImageSkeleton({ url }: { url: string }) {
   const [imageLoaded, setImageLoaded] = useState(false);

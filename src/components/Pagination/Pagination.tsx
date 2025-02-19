@@ -1,7 +1,7 @@
 import "./pagination.sass";
 import { changePage } from "@/store/movieListSlice";
 import ReactPaginate from "react-paginate";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/storeActions";
 
 interface PaginationProps {
   itemsPerPage: number;
@@ -32,7 +32,7 @@ function Pagination({ itemsPerPage, totalItems }: PaginationProps) {
         breakLinkClassName="pg__link"
         pageCount={numberOfPages ?? 9999}
         marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         onPageChange={paginate}
         containerClassName="pagination"
         activeClassName="pg__item--active"

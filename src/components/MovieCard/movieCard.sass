@@ -1,15 +1,26 @@
-.genreList
-  display: flex
-  flex-direction: row
-  gap: 5px
-
 .movieCard
+  grid-template-columns: 4fr 1fr 4fr 2fr
   border: 1px solid blue
-  border-radius: 10px
   min-height: 30px
   text-align: center
+  padding: 5px
+  @include radius(lg)
+  @include flex-center
+  @include hover-effect($secondary)
 
-  &:hover
-    background: cyan
-    cursor: pointer
-  
+  @include media-mobile(600px)
+    display: flex
+    flex-direction: column
+    gap: 10px
+    & > :first-child
+      font-weight: bold
+    & > :nth-child(2)::before
+      content: "Language: "
+      font-weight: bold
+    & > :nth-child(3)::before
+      content: "Genre: "
+      font-weight: bold
+    & > :nth-child(4)::before
+      content: "Released: "
+      font-weight: bold
+

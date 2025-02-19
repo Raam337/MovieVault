@@ -1,47 +1,53 @@
-@mixin btn-size($w)
-  text-decoration: none;
+@mixin btn-size($w,$h)
+  text-decoration: none
   text-align: center
-  color: inherit;
+  color: inherit
   display: block
   width: $w
-  height: 40px
-  line-height: 40px
+  height: $h
+  line-height: $h
   
 .pg
-  display: flex;
-  list-style: none;
-  padding: 0;
-  justify-content: center;
-  gap: 8px;
+  display: flex
+  list-style: none
+  padding: 0
+  justify-content: center
+  gap: 8px
+  flex-wrap: wrap
+  user-select: none
 
   &__item
-    background: #fff;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
+    background: #fff
+    border: 1px solid #ddd
+    cursor: pointer
+    border-radius: 4px
+    transition: background 0.2s, color 0.2s
     
-
     &:hover
-      background: #f0f0f0;
-    
+      background: $secondary
+      color: $text-contrast
 
     &--active
-      background: #007bff;
-      color: #fff;
-      border-color: #007bff;
-      font-weight: bold;
-    
+      background: $primary
+      color: $text-contrast
+      border-color: $primary
+      font-weight: bold
 
     &--disabled
-      opacity: 0.5;
-      pointer-events: none;
+      opacity: 0.5
+      pointer-events: none
 
   &__link 
-    @include btn-size($w: 40px)
+    @include btn-size(40px, 40px)
+    @include media-tablet
+      @include btn-size(30px, 30px)
+      font-size: 12px
 
   &__nav-button
-    @include btn-size($w: 100px)
+    @include btn-size(100px, 40px)
+    @include media-tablet
+      @include btn-size(60px, 30px)
+      font-size: 12px
     
 
   

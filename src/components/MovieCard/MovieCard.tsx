@@ -1,12 +1,10 @@
-import { Movie } from "@/types/Movie"
-import "./movieCard.sass"
 import { useNavigate } from "react-router-dom";
 
-interface MovieCardProps {
-  movie: Movie
-}
+import { Movie } from "@/types/Movie";
 
-const genres : { [key : number]:string } = {
+import "./movieCard.sass";
+
+const genres: Record<number, string> = {
   28: "Action",
   12: "Adventure",
   16: "Animation",
@@ -25,26 +23,27 @@ const genres : { [key : number]:string } = {
   10770: "TV Movie",
   53: "Thriller",
   10752: "War",
-  37: "Western"
+  37: "Western",
 };
 
-
-function MovieCard( { movie } : MovieCardProps ) {
-  const navigate = useNavigate()
+function MovieCard({ movie }: { movie: Movie }) {
+  const navigate = useNavigate();
   return (
-    <section 
-      className="movieCard" 
+    <section
+      className="movieCard"
       onClick={() => navigate(`/movie?id=${movie.id}`)}
       data-testid="movie-card"
-      >
+    >
       <span>{movie.title}</span>
       <span>{movie.original_language?.toUpperCase()}</span>
-      <span className="genreList">
-        {movie.genre_ids?.length ? movie.genre_ids?.map( (id:number) => genres[id] ).join(", ") : "-"}
+      <span>
+        {movie.genre_ids?.length
+          ? movie.genre_ids?.map((id: number) => genres[id]).join(", ")
+          : "-"}
       </span>
       <span>{movie.release_date}</span>
     </section>
-  )
+  );
 }
 
-export default MovieCard
+export default MovieCard;

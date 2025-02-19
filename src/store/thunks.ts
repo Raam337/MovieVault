@@ -14,7 +14,8 @@ const api = axios.create(
 
 export const fetchFeaturedMovies = createAsyncThunk(
   "list/fetchFeatured",
-  async (page:number = 1) => {
+  async (page?:number) => {
+    page = page || 1
     return api
       .get(`/featured?page=${page}`)
       .then( res => res.data)

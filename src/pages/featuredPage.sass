@@ -3,9 +3,14 @@
   flex-direction: column
   align-items: center
 
+  &__title
+    @include media-mobile
+      font-size: 22px      
+
   &__header
     font-size: 20px
     margin: 10px 0
+    color: $primary
 
   &__form
     display: flex
@@ -18,7 +23,7 @@
 
     &:focus
       outline: none;
-      background: #ffe7e7
+      background: $secondary
 
   &__search-btn
     border-top-right-radius: 6px

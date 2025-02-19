@@ -1,11 +1,13 @@
-@import '@splidejs/react-splide/css'
-  
+@use '@splidejs/react-splide/css'
+
 .detailPage
   display: grid
   grid-template-columns: repeat(2, minmax(100px,1fr))
   gap:20px
   align-items: center
-  padding: 2% 2%
+  padding: 20px 4%
+  @include media-tablet
+    grid-template-columns: 1fr
   
   &__carousel
     width: 100%
@@ -20,17 +22,21 @@
     display: grid
     grid-template-columns: 120px 1fr
     gap: 5px
+    @include media-mobile
+      grid-template-columns: 1fr
+      margin-top: 10px
 
     &--highlight
       font-weight: bold
 
   &__back-button
     grid-column: span 2
-    width: 6vw
-    border-radius: 6px
+    @include radius(md)
     border-width: 0px
     background: #eaeaea
-    color: #3a3a3a
+    @include btn-size(80px,20px)
+    @include media-tablet
+      grid-column: auto
   
     &:hover
       outline: 1px solid

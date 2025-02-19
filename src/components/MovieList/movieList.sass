@@ -7,18 +7,20 @@
 
   &__header
     border: 2px solid gray
-    border-radius: 10px
     font-weight: bold
+    width: 100%
+    grid-template-columns: 4fr 1fr 4fr 2fr
+    @include flex-center
+    @include radius("lg")
+
+    @include media-mobile(600px)
+      display: none
 
   &__placeholder
     width: 100% !important
-    height: 316px
-    
-//Grid-row
-.movieList > header, 
-.movieList >section
-  display: grid
-  grid-template-columns: 4fr 1fr 4fr 1fr
-  width: 100%
-  justify-items: center
-  align-items: center
+    height: 470px
+    @include media-mobile(600px)
+      height: 1400px
+  
+  
+

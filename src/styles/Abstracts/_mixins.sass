@@ -1,0 +1,35 @@
+@use "./_variables" as *
+
+@mixin media-mobile($w : map-get($breakpoints, mobile))
+  @media (max-width: $w)
+    @content
+
+@mixin media-tablet($w : map-get($breakpoints, tablet) )
+  @media (max-width: $w)
+    @content
+
+@mixin media-desktop($w : map-get($breakpoints, desktop))
+  @media (max-width: $w)
+    @content
+
+@mixin flex-center
+  display: grid
+  justify-items: center
+  align-items: center
+
+@mixin radius($size)
+  border-radius: map-get($border-sizes, $size)
+
+@mixin hover-effect($color)
+  transition: all 0.3s linear;
+  &:hover
+    background: $color
+
+@mixin btn-size($w,$h)
+  text-decoration: none
+  text-align: center
+  color: inherit
+  display: block
+  width: $w
+  height: $h
+  line-height: $h
