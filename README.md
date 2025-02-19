@@ -39,8 +39,8 @@ Ensure you have Node.js (>=16) and npm (>=8) installed.
 
 1. Clone the repository
   ```
-  git clone https://github.com/your-username/movievault.git
-  cd movievault
+  git clone git@github.com:Raam337/MovieVault.git
+  cd MovieVault
   ```
 
 2. Install dependencies
@@ -48,7 +48,7 @@ Ensure you have Node.js (>=16) and npm (>=8) installed.
 *Make sure you start at /MovieVault*
 ```
 npm install
-cd proxy; npm install
+cd proxy; npm install; cd..
 ```
 
 3. Run the development server
@@ -57,11 +57,15 @@ cd proxy; npm install
 
 Access web app at - [http://localhost:5173/](http://localhost:5173/)
 
+Access proxy at - [http://localhost:3000/](http://localhost:3000/)
+
+(Connection can be tested by navigating to port 3000 and ensuring "Hello World!" is shown)
+
 ---
 
 4. (Optional) Building for Production
 
-*If you would like to generate production files again*
+*If you would like to generate production files again. This step can be skipped as project already contains prod files.*
 
 ```
 
