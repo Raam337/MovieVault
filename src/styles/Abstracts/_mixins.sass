@@ -1,14 +1,15 @@
 @use "./_variables" as *
+@use "sass:map"
 
-@mixin media-mobile($w : map-get($breakpoints, mobile))
+@mixin media-mobile($w : map.get($breakpoints, mobile))
   @media (max-width: $w)
     @content
 
-@mixin media-tablet($w : map-get($breakpoints, tablet) )
+@mixin media-tablet($w : map.get($breakpoints, tablet) )
   @media (max-width: $w)
     @content
 
-@mixin media-desktop($w : map-get($breakpoints, desktop))
+@mixin media-desktop($w : map.get($breakpoints, desktop))
   @media (max-width: $w)
     @content
 
@@ -18,7 +19,7 @@
   align-items: center
 
 @mixin radius($size)
-  border-radius: map-get($border-sizes, $size)
+  border-radius: map.get($border-sizes, $size)
 
 @mixin hover-effect($color)
   transition: all 0.3s linear;

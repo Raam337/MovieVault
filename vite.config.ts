@@ -11,7 +11,9 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       sass: {
-        additionalData: `@use "src/styles/main.sass" as *\n`
+        additionalData: `@use "src/styles/main.sass" as *\n`,
+        silentDeprecations: true,
+
       },
     },
   },
